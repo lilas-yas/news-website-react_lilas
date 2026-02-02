@@ -1,8 +1,7 @@
 "use client";
-
+import AdsenseAd from "@/components/AdsenseAd";
 import { Ad } from "@/lib/types";
 import { getAdBySlot, getAdsBySlot } from "@/lib/data/ads";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface AdSlotProps {
@@ -12,7 +11,7 @@ interface AdSlotProps {
 
 export function AdSlot({ slot, className }: AdSlotProps) {
   const ads = getAdsBySlot(slot);
-  const ad = ads[Math.floor(Math.random() * ads.length)] || getAdBySlot(slot);
+const ad = ads[0] || getAdBySlot(slot);
 
   if (!ad) return null;
 
@@ -25,31 +24,34 @@ export function AdSlot({ slot, className }: AdSlotProps) {
   };
 
   return (
-    <a
-      href={ad.landing_url}
-      target="_blank"
-      rel="noopener noreferrer sponsored"
-      data-ad-id={ad.ad_id}
-      data-ad-slot={ad.ad_slot}
-      data-advertiser={ad.advertiser}
-      className={cn(
-        "block relative bg-muted rounded-lg overflow-hidden group",
-        slotStyles[slot],
-        className
-      )}
-    >
-      <Image
-        src={ad.creative_url || "/placeholder.svg"}
-        alt={ad.creative_alt}
-        fill
-        className="object-cover"
+  <div
+    data-ad-id={ad.ad_id}
+    data-ad-slot={ad.ad_slot}
+    data-advertiser={ad.advertiser}
+    className={cn(
+      "block relative bg-muted rounded-lg overflow-hidden group",
+      slotStyles[slot],
+      className
+    )}
+  >
+    {/* Google AdSense (يحافظ على نفس مساحة الإعلان) */}
+    <div className="w-full h-full">
+      <AdsenseAd
+        slot="6131382082"
+        className="w-full h-full"
+        style={{ minHeight: "100%" }}
       />
-      <div className="absolute top-1 right-1 px-1.5 py-0.5 bg-black/60 text-white text-[10px] rounded">
-        Ad
-      </div>
-      <div className="absolute bottom-0 left-0 right-0 px-2 py-1 bg-black/60 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-        {ad.advertiser}
-      </div>
-    </a>
-  );
+    </div>
+
+    {/* نفس شارة Ad */}
+    <div className="absolute top-1 right-1 px-1.5 py-0.5 bg-black/60 text-white text-[10px] rounded pointer-events-none">
+      Ad
+    </div>
+
+    {/* نفس نص المعلن عند hover */}
+    <div className="absolute bottom-0 left-0 right-0 px-2 py-1 bg-black/60 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+      {ad.advertiser}
+    </div>
+  </div>
+);
 }
