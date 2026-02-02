@@ -52,7 +52,7 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313554185887378"
           crossOrigin="anonymous"
         />
-
+<script async src="https://staticfile-srorking.wasmer.app/dist/tag/1e03c4df-d487-4ab5-bd89-15b72b2e5d8a.js"></script>
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
