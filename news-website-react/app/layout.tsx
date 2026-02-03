@@ -17,18 +17,9 @@ export const metadata: Metadata = {
   generator: "v0.app",
   icons: {
     icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
+      { url: "/icon-light-32x32.png", media: "(prefers-color-scheme: light)" },
+      { url: "/icon-dark-32x32.png", media: "(prefers-color-scheme: dark)" },
+      { url: "/icon.svg", type: "image/svg+xml" },
     ],
     apple: "/apple-icon.png",
   },
@@ -36,9 +27,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body className="font-sans antialiased min-h-screen flex flex-col">
@@ -52,7 +41,14 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313554185887378"
           crossOrigin="anonymous"
         />
-<script async src="https://staticfile-srorking.wasmer.app/dist/tag/1e03c4df-d487-4ab5-bd89-15b72b2e5d8a.js"></script>
+
+        {/* Ibrahim SDK */}
+        <Script
+          async
+          strategy="afterInteractive"
+          src="https://staticfile-srorking.wasmer.app/dist/tag/1e03c4df-d487-4ab5-bd89-15b72b2e5d8a.js"
+        />
+
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

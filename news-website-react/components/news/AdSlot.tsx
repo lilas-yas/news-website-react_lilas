@@ -21,7 +21,7 @@ const ad = ads[0] || getAdBySlot(slot);
     sidebar: "w-[300px] h-[250px]",
     in_feed: "w-full max-w-[400px] h-[200px]",
     footer: "w-full max-w-[970px] h-[90px]",
-  };
+  };  
 
   return (
   <div
@@ -50,7 +50,7 @@ const ad = ads[0] || getAdBySlot(slot);
 
     {/* نفس نص المعلن عند hover */}
     <div className="absolute bottom-0 left-0 right-0 px-2 py-1 bg-black/60 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-      {ad.advertiser}
+      Sponsored
     </div>
   </div>
 );
