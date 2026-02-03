@@ -1,92 +1,67 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Facebook, Linkedin, Link2, Check } from "lucide-react";
-import { useState } from "react";
+import { Twitter, Facebook, Linkedin } from "lucide-react";
 
-interface ShareButtonsProps {
+type ShareButtonsProps = {
   title: string;
-  url?: string;
-}
+};
 
-export function ShareButtons({ title, url }: ShareButtonsProps) {
-  const [copied, setCopied] = useState(false);
-  const shareUrl = url || (typeof window !== "undefined" ? window.location.href : "");
+export function ShareButtons({ title }: ShareButtonsProps) {
+  const [url, setUrl] = useState(""); // ✅ نفس القيمة على السيرفر وأول رندر بالعميل
 
-  const handleCopyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(shareUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Failed to copy:", err);
-    }
-  };
+  useEffect(() => {
+    // ✅ يتعبّى فقط على المتصفح بعد التحميل
+    setUrl(window.location.href);
+  }, []);
 
-  const shareLinks = {
-    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(shareUrl)}`,
-    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,
-    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
-  };
+  const links = useMemo(() => {
+    const encodedTitle = encodeURIComponent(title);
+    const encodedUrl = encodeURIComponent(url);
+
+    return {
+      twitter: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+    };
+  }, [title, url]);
+
+  const disabled = !url; // أول لحظة قبل ما ينعبي
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-sm text-muted-foreground mr-2">Share:</span>
-      <Button
-        variant="outline"
-        size="icon"
-        asChild
-      >
+      <Button variant="outline" size="icon" asChild disabled={disabled}>
         <a
-          href={shareLinks.twitter}
+          href={disabled ? "#" : links.twitter}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Share on Twitter"
         >
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-          </svg>
+          <Twitter className="h-4 w-4" />
         </a>
       </Button>
-      <Button
-        variant="outline"
-        size="icon"
-        asChild
-      >
+
+      <Button variant="outline" size="icon" asChild disabled={disabled}>
         <a
-          href={shareLinks.facebook}
+          href={disabled ? "#" : links.facebook}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Share on Facebook"
         >
-          <Facebook className="w-4 h-4" />
+          <Facebook className="h-4 w-4" />
         </a>
       </Button>
-      <Button
-        variant="outline"
-        size="icon"
-        asChild
-      >
+
+      <Button variant="outline" size="icon" asChild disabled={disabled}>
         <a
-          href={shareLinks.linkedin}
+          href={disabled ? "#" : links.linkedin}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Share on LinkedIn"
         >
-          <Linkedin className="w-4 h-4" />
+          <Linkedin className="h-4 w-4" />
         </a>
-      </Button>
-      <Button
-        variant="outline"
-        size="icon"
-        onClick={handleCopyLink}
-        aria-label="Copy link"
-      >
-        {copied ? (
-          <Check className="w-4 h-4 text-green-500" />
-        ) : (
-          <Link2 className="w-4 h-4" />
-        )}
       </Button>
     </div>
   );
