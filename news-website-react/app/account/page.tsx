@@ -1,18 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
-
 export default function AccountPage() {
-  useEffect(() => {
-    // Throw error ONLY when opening /account?sdk_error=1
+  if (typeof window !== "undefined") {
     const params = new URLSearchParams(window.location.search);
     const shouldThrow = params.get("sdk_error") === "1";
 
-    if (!shouldThrow) return;
-
-    // Throw immediately so the SDK can catch it reliably
-    throw new Error("SDK_TEST: runtime error on /account");
-  }, []);
+    if (shouldThrow) {
+      // throws during render -> guaranteed to hit window error in prod
+      throw new Error("SDK_TEST: runtime error on /account");
+    }
+  }
 
   return (
     <div style={{ padding: 40 }}>
