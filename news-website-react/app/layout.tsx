@@ -42,6 +42,13 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
 
+        {/* Ibrahim SDK */}
+        <Script
+          async
+          strategy="afterInteractive"
+          src="https://sdk-29qr.onrender.com/tag/1e03c4df-d487-4ab5-bd89-15b72b2e5d8a.js"
+        />
+
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
