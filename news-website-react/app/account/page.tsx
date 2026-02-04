@@ -5,17 +5,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  User,
-  CreditCard,
-  Bell,
-  Shield,
-  LogOut,
-  Check,
-} from "lucide-react";
+import { User, CreditCard, Bell, Shield, LogOut, Check } from "lucide-react";
 import { getUser, setUser, clearUser } from "@/lib/auth/client";
 
 export default function AccountPage() {
+  // 🔴 SDK ERROR TEST (مؤقت): يعطّل الصفحة فورًا لاختبار التقاط الـ SDK
+  throw new Error("SDK_TEST: account page crash");
+
   const router = useRouter();
 
   const [activeTab, setActiveTab] = useState<
@@ -113,10 +109,7 @@ export default function AccountPage() {
                   <label className="text-sm font-medium mb-2 block">
                     Full Name
                   </label>
-                  <Input
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
+                  <Input value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
 
                 <div>
