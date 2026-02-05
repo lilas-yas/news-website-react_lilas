@@ -31,9 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans antialiased min-h-screen flex flex-col">
-        {/* Global Tracking SDK - Replace 'url-example' with your actual SDK URL */}
-        <Script src="url-example" strategy="afterInteractive" />
-
+        
         {/* Google AdSense */}
         <Script
           async
