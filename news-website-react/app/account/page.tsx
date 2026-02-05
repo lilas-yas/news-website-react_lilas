@@ -26,7 +26,7 @@ export default function AccountPage() {
   const [email, setEmail] = useState("");
   const [saved, setSaved] = useState(false);
 
-  // تحميل بيانات المستخدم
+  // ✅ تحميل بيانات المستخدم عند فتح الصفحة
   useEffect(() => {
     const user = getUser();
     if (!user) {
@@ -37,7 +37,7 @@ export default function AccountPage() {
     setEmail(user.email);
   }, [router]);
 
-  // حفظ البيانات
+  // ✅ حفظ البيانات فعليًا
   const handleSave = () => {
     setUser({ name, email });
     setSaved(true);
@@ -153,30 +153,6 @@ export default function AccountPage() {
           )}
         </div>
       </div>
-
-      {/* ============================= */}
-      {/* SDK RUNTIME ERROR TEST BUTTON */}
-      {/* ============================= */}
-      <button
-        onClick={() => {
-          const broken: any = undefined;
-          // Runtime error حقيقي
-          console.log(broken.id);
-        }}
-        style={{
-          position: "fixed",
-          bottom: "20px",
-          right: "20px",
-          zIndex: 9999,
-          padding: "10px 14px",
-          background: "#dc2626",
-          color: "#fff",
-          borderRadius: "8px",
-          fontWeight: "bold",
-        }}
-      >
-        SDK ERROR TEST
-      </button>
     </div>
   );
 }
