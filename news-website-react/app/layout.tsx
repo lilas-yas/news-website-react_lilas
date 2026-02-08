@@ -30,14 +30,15 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased min-h-screen flex flex-col">
-
-        {/* Ibrahim SDK */}
+      <head>
+        {/* ContentSquare */}
         <Script
-          src="https://sdk-29qr.onrender.com/tag/1e03c4df-d487-4ab5-bd89-15b72b2e5d8a.js?v=0.2.2"
+          src="https://t.contentsquare.net/uxa/e7c6c5b2ff3ce.js"
           strategy="afterInteractive"
         />
+      </head>
 
+      <body className="font-sans antialiased min-h-screen flex flex-col">
         {/* Google AdSense */}
         <Script
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5313554185887378"
