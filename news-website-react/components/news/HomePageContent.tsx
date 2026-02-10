@@ -7,6 +7,7 @@ import { CardGrid } from "./CardGrid";
 import { Sidebar } from "./SidebarWidgets";
 import { Pagination } from "./Pagination";
 import { getLatestArticles } from "@/lib/data/articles";
+import HorizontalArticles from "./HorizontalArticles";
 
 interface HomePageContentProps {
   topStories: Article[];
@@ -37,14 +38,13 @@ export function HomePageContent({
 
   const heroArticle = topStories[0];
   const secondaryStories = topStories.slice(1, 5);
+  const horizontalArticles = topStories.slice(0, 5);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      {/* Top Stories Section */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-6">Top Stories</h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Hero Article */}
           <div className="lg:col-span-2">
             {heroArticle && (
               <NewsCard
@@ -59,8 +59,7 @@ export function HomePageContent({
               />
             )}
           </div>
-          
-          {/* Secondary Stories */}
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
             {secondaryStories.map((article, index) => {
               const cardData: CardData = {
@@ -69,6 +68,7 @@ export function HomePageContent({
                 surface: "home",
                 slot_position: index + 2,
               };
+
               return (
                 <NewsCard
                   key={article.article_id}
@@ -82,9 +82,9 @@ export function HomePageContent({
         </div>
       </section>
 
-      {/* Main Content Area */}
+      <HorizontalArticles articles={horizontalArticles} surface="home" title="Featured Articles" intervalMs={3500} />
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Latest Articles */}
         <div className="lg:col-span-2">
           <section>
             <h2 className="text-2xl font-bold mb-6">Latest News</h2>
@@ -95,8 +95,7 @@ export function HomePageContent({
               adPositions={[3, 10]}
               columns={2}
             />
-            
-            {/* Pagination */}
+
             <div className="mt-8">
               <Pagination
                 currentPage={currentPage}
@@ -107,7 +106,6 @@ export function HomePageContent({
           </section>
         </div>
 
-        {/* Sidebar */}
         <div className="lg:col-span-1">
           <Sidebar
             mostReadArticles={mostReadArticles}
