@@ -24,14 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans antialiased min-h-screen flex flex-col">
-        {/* INIT QUEUE BEFORE SDK */}
-        <Script id="ptq-init" strategy="beforeInteractive">
-          {`window._ptq = window._ptq || [];`}
-        </Script>
-
-        {/* HUDHUD / Custom SDK */}
+        {/* ContentSquare */}
         <Script
-          src="https://sdk-29qr.onrender.com/tag/d2f3a4b5-c6d7-4e8f-9a0b-6c5d4e3f2a66.js?v=0.2.2"
+          src="https://t.contentsquare.net/uxa/e7c6c5b2ff3ce.js"
           strategy="afterInteractive"
         />
 
