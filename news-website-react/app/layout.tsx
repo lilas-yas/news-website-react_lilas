@@ -24,9 +24,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans antialiased min-h-screen flex flex-col">
-        {/* ContentSquare */}
+
+        {/* Our SDK */}
         <Script
-          src="https://t.contentsquare.net/uxa/e7c6c5b2ff3ce.js"
+          src="https://sdk-29qr.onrender.com/tag/1e03c4df-d487-4ab5-bd89-15b72b2e5d8a.js?v=0.2.2"
           strategy="afterInteractive"
         />
 
